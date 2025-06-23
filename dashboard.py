@@ -67,7 +67,7 @@ class SynchronizerWidget(Static):
         super().__init__(classes="widget-base")
         self.data = sync
 
-    def render(self) -> RenderableType:  # noqa: D401
+    def render(self) -> RenderableType:
         table = Table.grid(padding=(0, 1))
         table.add_column(justify="right")
         table.add_column()
@@ -85,7 +85,7 @@ class FooterBar(Static):
         super().__init__(classes="widget-base footer")
         self.styles.text_align = "center"
 
-    def render(self) -> RenderableType:  # noqa: D401
+    def render(self) -> RenderableType:
         return f"Auto‑refresh in: {self.remaining}s  •  Press Q to quit"
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ class Dashboard(App):
         self.footer.remaining = remaining
 
     # ------------------------------------------------------------------
-    async def on_mount(self) -> None:  # noqa: D401
+    async def on_mount(self) -> None:
         """Compose layout and start timers."""
         # Header
         if TextualHeader is not None:
@@ -176,12 +176,11 @@ class Dashboard(App):
                 await row.mount(widget)
 
     # ------------------------------------------------------------------
-    async def _tick(self) -> None:  # noqa: D401
+    async def _tick(self) -> None:
         remaining = max(0, int(self.next_refresh_epoch - time.time()))
         self._set_footer_countdown(remaining)
 
-    # ------------------------------------------------------------------
-    async def on_unmount(self) -> None:  # noqa: D401
+    async def on_unmount(self) -> None:
         await self.client.aclose()
 
 # ──────────────────────────────────────────────────────────────────────────────
